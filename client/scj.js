@@ -6,7 +6,7 @@
     swf_path:'../../swf/audio5js.swf',
     throw_errors: true,
     ready: function () {
-      var player = this;
+      player = this;
 
       SC.initialize({
         client_id: "c77badb5b68bb339edd72aeb1048266c"
