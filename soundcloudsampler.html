@@ -1,4 +1,18 @@
 <head>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+  <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+
 <meta charset=utf-8 />
 <title>Play 10 last sounds from SoundCloud with Audio5JS.</title>
 <style>
@@ -27,10 +41,12 @@ ul {
 <body>
   <p class="note">Click on the tracks below to play 10 last sounds from <a href="http://developers.soundcloud.com/docs/api/sdks#javascript">SoundCloud</a> with <a href="https://github.com/zohararad/audio5js">Audio5JS.</a></p>
 
-  <ul></ul>
+  <ul id="tracklist"></ul>
+
+  <ul id="tl2"><li id="foo" class=track data-stream="http://api.soundcloud.com/tracks/146663487/stream?client_id=c77badb5b68bb339edd72aeb1048266c"><b>Raftam Sare Kooche</b></li></ul>
 
   <script src="http://connect.soundcloud.com/sdk.js"></script>
   <script src="audio5.js"></script>
-  <script src="main.js">
+  <script src="scj.js">
   </script>
 </body>
