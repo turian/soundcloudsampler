@@ -1,0 +1,59 @@
+<head>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+  <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+
+<meta charset=utf-8 />
+<title>Play 10 last sounds from SoundCloud with Audio5JS.</title>
+<style>
+* {
+  margin:0;
+  padding:0;
+}
+body {
+  font-family:helvetica, sans-serif;
+  line-height:1.5;
+  padding:30px;
+}
+ul {
+  list-style:none;
+}
+.note {
+  margin:0 0 1em;
+}
+.track b {
+  cursor: pointer;
+  border-bottom:1px dashed #000;
+  font-weight:normal;
+}
+</style>
+</head>
+<body>
+
+  {{> login }}
+
+  <p class="note">Click on the tracks below to play 10 last sounds from <a href="http://developers.soundcloud.com/docs/api/sdks#javascript">SoundCloud</a> with <a href="https://github.com/zohararad/audio5js">Audio5JS.</a></p>
+
+  <ul id="tracklist"></ul>
+
+  {{> trackList}}
+
+  <script src="http://connect.soundcloud.com/sdk.js"></script>
+  <script src="/js/audio5.js"></script>
+</body>
+
+<template name="login">
+  <button type="button" class="btn btn-default btn-lg">
+    Login
+  </button>
+</template>

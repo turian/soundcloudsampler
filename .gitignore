@@ -1,2 +1,7 @@
+*.bak
+*.sw?
 .meteor/local
 .meteor/meteorite
+packages/
+smart.json
+smart.lock
