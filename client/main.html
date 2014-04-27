@@ -12,6 +12,10 @@
   <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
   <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
   <meta charset=utf-8 />
   <title>SoundCloud Sampler</title>
 
@@ -25,6 +29,11 @@
   <ul id="tracklist"></ul>
 
   {{> trackList}}
+
+  <button type="button" class="btn btn-default btn-lg"> 
+    <i class="glyphicon glyphicon-star"></i>
+<!--    <i class="glyphicon glyphicon-star-empty fa-spin"></i> -->
+  </button>
 
   <script src="http://connect.soundcloud.com/sdk.js"></script>
   <script src="/js/audio5.js"></script>
