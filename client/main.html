@@ -39,6 +39,9 @@ ul {
 </style>
 </head>
 <body>
+
+  {{> login }}
+
   <p class="note">Click on the tracks below to play 10 last sounds from <a href="http://developers.soundcloud.com/docs/api/sdks#javascript">SoundCloud</a> with <a href="https://github.com/zohararad/audio5js">Audio5JS.</a></p>
 
   <ul id="tracklist"></ul>
@@ -46,7 +49,11 @@ ul {
   {{> trackList}}
 
   <script src="http://connect.soundcloud.com/sdk.js"></script>
-  <script src="audio5.js"></script>
-  <script src="scj.js">
-  </script>
+  <script src="/js/audio5.js"></script>
 </body>
+
+<template name="login">
+  <button type="button" class="btn btn-default btn-lg">
+    Login
+  </button>
+</template>
