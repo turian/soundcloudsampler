@@ -14,21 +14,20 @@
 </head>
 
 <body>
-  {{> hello}}
-
-  <button type="button" class="btn btn-default btn-lg">
+  <button type="button" class="btn btn-default btn-lg" style="width: 20%">
     <span class="glyphicon glyphicon-repeat"></span>
   </button>
 
-  <button type="button" class="btn btn-default btn-lg">
+  <button type="button" class="btn btn-default btn-lg" style="width: 20%">
     <span class="glyphicon glyphicon-forward"></span>
   </button>
 
-  <button id="next-btn" type="button" class="btn btn-default btn-lg">
+  <!-- TODO: Preload the next track? -->
+  <button id="next-btn" type="button" class="btn btn-default btn-lg" style="width: 20%">
     <span class="glyphicon glyphicon-eject"></span>
   </button>
 
-  <button id="previous-btn" type="button" class="btn btn-default btn-lg">
+  <button id="previous-btn" type="button" class="btn btn-default btn-lg" style="width: 20%">
     <span class="glyphicon glyphicon-fast-backward"></span>
   </button>
 
@@ -39,6 +38,10 @@
         widget       = SC.Widget(widgetIframe);
 
     widget.bind(SC.Widget.Events.READY, function() {
+      widget.play();
+    });
+
+    widget.bind(SC.Widget.Events.PLAY, function() {
       widget.bind(SC.Widget.Events.PLAY_PROGRESS, function() {
         widget.getPosition(function(position) {
           console.log(position);
@@ -48,7 +51,6 @@
           }
         });
       });
-      widget.play();
     });
 
     $('#next-btn').click(function () {
@@ -65,9 +67,3 @@
 </script>
 
 </body>
-
-<template name="hello">
-  <h1>Hello World!</h1>
-  {{greeting}}
-  <input type="button" value="Click" />
-</template>
