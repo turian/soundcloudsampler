@@ -1,29 +1,11 @@
 Meteor.startup(function() {
   Session.set("isPlaying", false);          // Because there's no autoplay until a user event
   Session.set("isHoldingPlay", false);
-});
 
-var container = $('#tracklist'),
-    CLIENT_ID = '?client_id=c77badb5b68bb339edd72aeb1048266c>';
-
-var audio5js = new Audio5js({
-  swf_path:'/swf/audio5js.swf',
-  throw_errors: true,
-  ready: function () {
-    player = this;
-
-    SC.initialize({
-      client_id: "c77badb5b68bb339edd72aeb1048266c",
-      redirect_uri: Meteor.absoluteUrl("server/soundcloud-callback.html")
-    });
-
-    player.on('canplay', function(){
-      player.play();
-      Session.set("isPlaying", true);
-      Session.set("currentTrack.duration", player.duration);
-      console.log(player.position, player.duration, player.load_percent, player.volume());
-    });
-  }
+  SC.initialize({
+    client_id: "c77badb5b68bb339edd72aeb1048266c",
+    redirect_uri: Meteor.absoluteUrl("server/soundcloud-callback.html")
+  });
 });
 
 Template.login.events({
@@ -46,6 +28,8 @@ Template.login.events({
 });
 
 startTrack = function(trackUrl) {
-  player.load(trackUrl);
-  Session.set("currentTrack.url", trackUrl);
+  SC.stream("/tracks/293", function(sound){
+    Session.set("isPlaying", true);
+    sound.play();
+  });
 }
