@@ -83,9 +83,15 @@ nextTrack = function() {
   currentSound.stop();
   currentSound = nextSound; // TODO: What if nextSound isn't ready yet?
   startTrack();
-  // TODO: Prepare nextSound
+
+  // Prepare nextSound
+  trackNo += 1
+  SC.stream(tracks[trackNo+1], function(sound){
+    nextSound = sound;
+  });
 }
 
+var secondSnippetStart = null;
 startTrack = function() {
 /*
   // Wait until currentSound is ready
@@ -95,7 +101,6 @@ startTrack = function() {
 
   Session.set("isPlaying", true);
 
-  secondSnippetStart = null;
   currentSound.options.whileplaying =
     function() {
       Session.set("currentTrack.position", currentSound.position);
@@ -107,7 +112,6 @@ startTrack = function() {
             // todo: Pick the most commented portion of the song?
             secondSnippetStart = currentSound.durationEstimate / 1000. / 2;
             secondSnippetEnd = secondSnippetStart + SECONDS_FOR_SECOND_SNIPPET
-            console.log(secondSnippetStart);
           }
 
           if (this.position < secondSnippetStart * 1000.) {
