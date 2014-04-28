@@ -39,10 +39,25 @@ Template.login.events({
 
 $(function() {
     Meteor.defer(function() {
-        hammertime = $('#play-btn').hammer();
-        hammertime.on('hold tap swipe doubletap transformstart transform transformend dragstart drag dragend swipe release', function (event) {
+        var options = {
+          dragLockToAxis: true,
+          dragBlockHorizontal: true
+        };
+        hammertime = $('#play-btn').hammer(options);
+        hammertime.on("dragright swiperight", function(event){
             event.preventDefault();
-            console.log("Type: " + event.type + ", Fingers: " + event.touches + ", Direction: " + event.direction + "<br/>");
+            event.gesture.preventDefault();
+            nextTrack();
+        });
+        hammertime.on("dragleft swipeleft", function(event){
+            event.preventDefault();
+            event.gesture.preventDefault();
+            previousTrack();
+        });
+        hammertime.on("hold", function(event) {
+            event.preventDefault();
+            event.gesture.preventDefault();
+            hold();
         });
     });
 });
