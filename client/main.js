@@ -1,5 +1,6 @@
 Meteor.startup(function() {
   Session.set("isPlaying", false);          // Because there's no autoplay until a user event
+  Session.set("isHoldingPlay", false);
 });
 
 var container = $('#tracklist'),
@@ -39,29 +40,4 @@ Template.login.events({
       });
     });
   }
-});
-
-$(function() {
-    Meteor.defer(function() {
-        var options = {
-          dragLockToAxis: true,
-          dragBlockHorizontal: true
-        };
-        hammertime = $('#play-btn').hammer(options);
-        hammertime.on("dragright swiperight", function(event){
-            event.preventDefault();
-            event.gesture.preventDefault();
-            nextTrack();
-        });
-        hammertime.on("dragleft swipeleft", function(event){
-            event.preventDefault();
-            event.gesture.preventDefault();
-            previousTrack();
-        });
-        hammertime.on("hold", function(event) {
-            event.preventDefault();
-            event.gesture.preventDefault();
-            hold();
-        });
-    });
 });
