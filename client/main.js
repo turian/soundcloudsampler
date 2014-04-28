@@ -26,6 +26,13 @@ Meteor.startup(function() {
   });
 });
 
+nextTrack = function() {
+  currentSound.stop();
+  currentSound = nextSound; // TODO: What if nextSound isn't ready yet?
+  startTrack();
+  // TODO: Prepare nextSound
+}
+
 startTrack = function() {
 /*
   // Wait until currentSound is ready
@@ -50,10 +57,14 @@ startTrack = function() {
           }
 
           if (this.position < secondSnippetStart * 1000.) {
-            console.log("jump");
             // TODO: What to do if currentSound.duration < secondSnippetStart * 1000.
             // i.e. the sound isn't loaded enough?
             currentSound.setPosition(secondSnippetStart * 1000.);
+          }
+
+          if (this.position > secondSnippetEnd * 1000.) {
+            console.log("next track");
+            nextTrack();
           }
         } else {
           // We're still at the beginning of the track
