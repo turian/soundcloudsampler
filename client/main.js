@@ -1,3 +1,7 @@
+Meteor.startup(function() {
+  Session.set("isPlaying", false);          // Because there's no autoplay until a user event
+});
+
 var container = $('#tracklist'),
     CLIENT_ID = '?client_id=c77badb5b68bb339edd72aeb1048266c>';
 
