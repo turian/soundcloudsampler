@@ -18,8 +18,6 @@ var audio5js = new Audio5js({
   }
 });
 
-console.log(Meteor.absoluteUrl("server/soundcloud-callback.html"));
-
 Template.login.events({
   'click': function(e) {
     e.preventDefault();
@@ -37,4 +35,14 @@ Template.login.events({
       });
     });
   }
+});
+
+$(function() {
+    Meteor.defer(function() {
+        hammertime = $('#play-btn').hammer();
+        hammertime.on('hold tap swipe doubletap transformstart transform transformend dragstart drag dragend swipe release', function (event) {
+            event.preventDefault();
+            console.log("Type: " + event.type + ", Fingers: " + event.touches + ", Direction: " + event.direction + "<br/>");
+        });
+    });
 });
