@@ -72,26 +72,21 @@ Meteor.startup(function() {
     Session.set("isInitialized", true);
     currentSound = sound;
     Session.set("currentTrack.url", sound.url);
-    // Set up the next track to play
-    SC.stream(tracks[trackNo+1], function(sound){
-      nextSound = sound;
-    });
   });
 });
 
 nextTrack = function() {
   currentSound.stop();
-  currentSound = nextSound; // TODO: What if nextSound isn't ready yet?
-  startTrack();
-
-  // Prepare nextSound
   trackNo += 1
-  SC.stream(tracks[trackNo+1], function(sound){
-    nextSound = sound;
+
+  SC.stream(tracks[trackNo], function(sound){
+    Session.set("isInitialized", true);
+    currentSound = sound;
+    Session.set("currentTrack.url", sound.url);
+    startTrack();
   });
 }
 
-var secondSnippetStart = null;
 startTrack = function() {
 /*
   // Wait until currentSound is ready
@@ -101,26 +96,34 @@ startTrack = function() {
 
   Session.set("isPlaying", true);
 
+  Session.set("currentTrack.haveSecondSnippetPosition", false);
+  Session.set("currentTrack.playedSecondSnippet", false);
+
   currentSound.options.whileplaying =
     function() {
       Session.set("currentTrack.position", currentSound.position);
       if (!Session.get("isHoldingPlay")) {
         if (this.position > SECONDS_FOR_INTRO_SNIPPET * 1000.) {
-          if (secondSnippetStart == null) {
+          if (!Session.get("currentTrack.haveSecondSnippetPosition")) {
+            Session.set("currentTrack.haveSecondSnippetPosition", true);
             // Second snippet starts at halfway into the track
             // todo: Get the duration from the soundcloud API against the track URL?
             // todo: Pick the most commented portion of the song?
-            secondSnippetStart = currentSound.durationEstimate / 1000. / 2;
-            secondSnippetEnd = secondSnippetStart + SECONDS_FOR_SECOND_SNIPPET
+            Session.set("currentTrack.secondSnippetStart", currentSound.durationEstimate / 1000. / 2);
+            Session.set("currentTrack.secondSnippetEnd",
+              Session.get("currentTrack.secondSnippetStart") + SECONDS_FOR_SECOND_SNIPPET);
           }
 
-          if (this.position < secondSnippetStart * 1000.) {
+          if (this.position < Session.get("currentTrack.secondSnippetStart") * 1000. &&
+              !Session.get("currentTrack.playedSecondSnippet")) {
+            Session.set("currentTrack.playedSecondSnippet", true);  // Only want to try playing the second snippet once
+
             // TODO: What to do if currentSound.duration < secondSnippetStart * 1000.
             // i.e. the sound isn't loaded enough?
-            currentSound.setPosition(secondSnippetStart * 1000.);
+            currentSound.setPosition(Session.get("currentTrack.secondSnippetStart") * 1000.);
           }
 
-          if (this.position > secondSnippetEnd * 1000.) {
+          if (this.position > Session.get("currentTrack.secondSnippetEnd") * 1000.) {
             console.log("next track");
             nextTrack();
           }
