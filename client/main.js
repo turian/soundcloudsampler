@@ -37,7 +37,7 @@ startTrack = function() {
   currentSound.options.whileplaying =
     function() {
       if (!Session.get("isHoldingPlay")) {
-        if (this.position > SECONDS_FOR_INTRO_SNIPPET) {
+        if (this.position > SECONDS_FOR_INTRO_SNIPPET * 1000.) {
           if (secondSnippetStart == null) {
             // Second snippet starts at halfway into the track
             // todo: Get the duration from the soundcloud API against the track URL?
@@ -47,11 +47,12 @@ startTrack = function() {
             console.log(secondSnippetStart);
           }
 
-/*
-          if (this.position < secondSnippetStart) {
-            sound.seek(secondSnippetStart * 1000.);
+          if (this.position < secondSnippetStart * 1000.) {
+            console.log("jump");
+            // TODO: What to do if currentSound.duration < secondSnippetStart * 1000.
+            // i.e. the sound isn't loaded enough?
+            currentSound.setPosition(secondSnippetStart * 1000.);
           }
-          */
         } else {
           // We're still at the beginning of the track
         }
