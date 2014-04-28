@@ -68,22 +68,33 @@ Meteor.startup(function() {
   });
 
   // Set up the first track to play
-  SC.stream(tracks[trackNo], function(sound){
-    Session.set("isInitialized", true);
-    currentSound = sound;
-    Session.set("currentTrack.url", sound.url);
-  });
+  streamTrack(false);
 });
 
 nextTrack = function() {
   currentSound.stop();
-  trackNo += 1
+  if (trackNo < tracks.length - 1) {
+    trackNo += 1;
+  }
+  streamTrack(true);
+}
 
+previousTrack = function() {
+  currentSound.stop();
+  if (trackNo < 0) {
+    trackNo -= 1;
+  }
+  streamTrack(true);
+}
+
+streamTrack = function(start) {
   SC.stream(tracks[trackNo], function(sound){
     Session.set("isInitialized", true);
     currentSound = sound;
     Session.set("currentTrack.url", sound.url);
-    startTrack();
+    if (start) {
+      startTrack();
+    }
   });
 }
 
