@@ -19,6 +19,9 @@ var audio5js = new Audio5js({
 
     player.on('canplay', function(){
       player.play();
+      Session.set("isPlaying", true);
+      Session.set("currentTrack.duration", player.duration);
+      console.log(player.position, player.duration, player.load_percent, player.volume());
     });
   }
 });
@@ -44,5 +47,5 @@ Template.login.events({
 
 startTrack = function(trackUrl) {
   player.load(trackUrl);
-  Session.set("isPlaying", true);
+  Session.set("currentTrack.url", trackUrl);
 }
