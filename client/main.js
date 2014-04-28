@@ -21,5 +21,9 @@ Meteor.startup(function() {
 
 startTrack = function(trackUrl) {
   Session.set("isPlaying", true);
+  currentSound.options.whileplaying =
+    function() {
+      console.log(this.position);
+    };
   currentSound.play();
 }
