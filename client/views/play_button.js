@@ -32,6 +32,7 @@ Template.playButton.configure_touch_control = function() {
             event.gesture.preventDefault();
             Session.set("isHoldingPlay", false);
             console.log("release");
+//            console.log(player.duration);
 //            hold();
         });
     });

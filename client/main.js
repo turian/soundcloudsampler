@@ -41,3 +41,8 @@ Template.login.events({
     });
   }
 });
+
+startTrack = function(trackUrl) {
+  player.load(trackUrl);
+  Session.set("isPlaying", true);
+}
