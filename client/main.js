@@ -1,5 +1,5 @@
 var SECONDS_FOR_INTRO_SNIPPET = 3.;
-var SECONDS_FOR_MIDDLE_SNIPPET = 3.;
+var SECONDS_FOR_SECOND_SNIPPET = 3.;
 
 var currentSound = null;
 var nextSound = null;
@@ -31,10 +31,25 @@ startTrack = function() {
   while(currentSound == null) { }
 */
 
+  secondSnippetStart = null;
   currentSound.options.whileplaying =
     function() {
       if (!Session.get("isHoldingPlay")) {
         if (this.position > SECONDS_FOR_INTRO_SNIPPET) {
+          if (secondSnippetStart == null) {
+            // Second snippet starts at halfway into the track
+            // todo: Get the duration from the soundcloud API against the track URL?
+            // todo: Pick the most commented portion of the song?
+            secondSnippetStart = currentSound.durationEstimate / 1000. / 2;
+            secondSnippetEnd = secondSnippetStart + SECONDS_FOR_SECOND_SNIPPET
+            console.log(secondSnippetStart);
+          }
+
+/*
+          if (this.position < secondSnippetStart) {
+            sound.seek(secondSnippetStart * 1000.);
+          }
+          */
         } else {
           // We're still at the beginning of the track
         }
