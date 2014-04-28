@@ -33,6 +33,8 @@ startTrack = function() {
   while(currentSound == null) { }
 */
 
+  Session.set("isPlaying", true);
+
   secondSnippetStart = null;
   currentSound.options.whileplaying =
     function() {
