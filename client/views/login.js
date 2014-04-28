@@ -13,6 +13,11 @@ Template.login.events({
         });
 */
       });
+      SC.get('/me/favorites', function(favorites) {
+        favorites.forEach(function(f) {
+          console.log(f.uri);
+        });
+      });
     });
   }
 });
