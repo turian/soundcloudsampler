@@ -1,4 +1,5 @@
 var currentSound;
+var nextSound;
 Meteor.startup(function() {
   Session.set("isPlaying", false);          // Because there's no autoplay until a user event
   Session.set("isHoldingPlay", false);
@@ -11,6 +12,10 @@ Meteor.startup(function() {
   // Set up the first track to play
   SC.stream("/tracks/293", function(sound){
     currentSound = sound;
+    // Set up the next track to play
+    SC.stream("/tracks/294", function(sound){
+      nextSound = sound;
+    });
   });
 });
 
